@@ -1,16 +1,79 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 public class Rambles{
 
 
     public static void main(String[] args) {
-        String s = "abaccb";
-        int[] distance = {1,3,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-        checkDistances(s, distance);
 
+    }
+
+    public static boolean wordBreak(String s, List<String> wordDict) {
+        int first = 0;
+        int second = 0;
+
+        int max = 0;
+
+        for(String word : wordDict){
+            max = Math.max(max, word.length());
+        }
+
+        while(second < s.length()){
+            while(!wordDict.contains(s.substring(first, second))){
+                second++;
+                if(second > s.length()){
+                    return false;
+                }
+            }
+
+            if(second - first > max){
+                return false;
+            }
+
+            first = second;
+            second = second;
+
+        }
+
+
+        return true;
+    }
+
+    public static int stockPrice(int[] A){
+        int max = 0;
+
+        for(int i = 0; i < A.length; i++){
+            for(int k = i + 1; k < A.length; k++){
+                if(max < A[k] - A[i]){
+                    max = A[k] - A[i];
+                }
+            }
+        }
+
+        return max;
+    }
+
+    public static int stockPrice2(int[] A){
+        int max = 0;
+        int ind = 0;
+
+        for(int i = 0; i < A.length; i++){
+            if(A[i] > max){
+                max = A[i];
+                ind = i;
+            }
+        }
+        int min = max;
+        for(int k = 0; k < ind; k++){
+            if(A[k] < min){
+                min = A[k];
+            }
+        }
+
+        return max - min;
     }
 
     public static boolean checkDistances(String s, int[] distance) {
